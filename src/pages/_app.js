@@ -1,4 +1,4 @@
-import "tailwindcss/tailwind.css"
+import "../styles/global.css"
 
 function RoutineReact({Component, pageProps}){
     return <Component {...pageProps} />

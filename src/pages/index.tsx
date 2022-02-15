@@ -1,4 +1,8 @@
 
 export default function Home(){
-    return (<h1>Olá Mundo React</h1>)
+    return (
+            <div className={`flex align h-screen justify-center items-center bg-slate-400`}>
+                <span>Olá Mundo React Showww</span>
+            </div>
+        )
 }
