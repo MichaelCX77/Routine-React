@@ -1,6 +1,5 @@
 import ButtonSmall from './buttons/ButtonSmall'
 
-import Icon from '@mdi/react';
 import React from 'react';
 
 function head(){
