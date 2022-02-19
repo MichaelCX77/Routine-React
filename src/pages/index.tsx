@@ -8,10 +8,10 @@ import Formulario from '../components/Formulario'
 
 export default function Home(){
     return (
-        <div className='w-screen'>
+        <div className='w-full'>
             <NavBar title="Routine React"/>
             <div className='flex justify-end mx-6 my-4'>
-                {/* <Button text="Planejar"/> */}
+                {/* <Button text="Planejar"/>    */}
             </div>
             <Main title="Planejamento">
                 <Conteudo>

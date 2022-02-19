@@ -25,13 +25,13 @@ function getButtons(){
     )
 }
 
-function getLine(bg,color){
+function getLine(bg,color,key){
 
     const classe_td="pl-2 py-2"
 
     return (
 
-        <tr className={`${bg} text-${color}  hover:bg-slate-200`}>
+        <tr key={key} className={`${bg} text-${color}  hover:bg-slate-200`}>
             <td className={classe_td}>09:00</td>
             <td className={classe_td}>Buscar Yohan na creche</td>
             <td className={classe_td}>Buscar Yohan na creche</td>
@@ -46,10 +46,10 @@ function body(){
 
     return (
         <tbody className="">
-            {getLine("bg-cyan-200","gray-600")}
-            {getLine("bg-cyan-600","white")}
-            {getLine("bg-cyan-200","gray-600")}
-            {getLine("bg-cyan-600","white")}
+            {getLine("bg-cyan-200","gray-600",1)}
+            {getLine("bg-cyan-600","white",2)}
+            {getLine("bg-cyan-200","gray-600",3)}
+            {getLine("bg-cyan-600","white",4)}
         </tbody>
     )
 }
