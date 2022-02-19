@@ -9,11 +9,10 @@ export default function Button(props){
     const stringClass = color + " " + hover + " " + width
 
     return (
-        <div>
-            <button className={`
-                ${stringClass} rounded-md py-2 px-2 ${classe}`} >
-                {props.text}
-            </button>
-        </div>
+        <button className={`
+            ${stringClass} rounded-md py-2 px-2 ${classe}`}
+            onClick={props.onClick} >
+            {props.text}
+        </button>
     )
 }

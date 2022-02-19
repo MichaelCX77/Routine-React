@@ -52,7 +52,7 @@ export default function Formulario(props){
     function renderSelectHour(){
         return(
             <div className="flex items-baseline">
-                <Input id="check_naorepetir" type="checkbox" />
+                <CheckPerson color="black"/>
                 <label className="pl-3" htmlFor="check_naorepetir">Não Repetir</label>
             </div>
         )
@@ -72,19 +72,19 @@ export default function Formulario(props){
     function renderSelectColor(){
         return(
             <div className="flex items-baseline">
-                <CheckPerson color="red" classe="px-12 py-3"/>
-                <CheckPerson color="blue" classe="px-12 py-3"/>
-                <CheckPerson color="yellow" classe="px-12 py-3"/>
-                <CheckPerson color="green" classe="px-12 py-3"/>
+                <CheckPerson color="#fd4141" classe="px-12 py-3"/>
+                <CheckPerson color="#5555fb" classe="px-12 py-3"/>
+                <CheckPerson color="#ffb122" classe="px-12 py-3"/>
+                <CheckPerson color="#25bb25" classe="px-12 py-3"/>
             </div>
         )
     }
 
-    function renderButtons(){
+    function renderButtons(click){
         return(
             <div className="flex place-content-center mt-5">
-                <Button text="Voltar" color="bg-gray-400" hover="hover:bg-gray-200" classe="mx-3"/>
-                <Button text="Confirmar" class="mx-3" width="w-24"/>
+                <Button text="Voltar" color="bg-gray-400" hover="hover:bg-gray-200" classe="mx-3" onClick={click}/>
+                <Button text="Confirmar" class="mx-3" width="w-24" onClick={click}/>
             </div>
         )
     }
@@ -94,12 +94,12 @@ export default function Formulario(props){
             <div className="container">
                 {renderInputTitulo()}
                 {renderTextArea()}
-                {renderTextArea()}
+                {renderInputDate()}
                 {renderSelectHour()}
                 {renderFrequency()}
                 {renderSelectColor()}
             </div>
-            {renderButtons()}
+            {renderButtons(props.setTableVisible)}
             <br />
         </React.Fragment>
     )
