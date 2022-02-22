@@ -22,5 +22,5 @@
 	border-radius: 3px;
 }
 .check input:checked + span {
-	background-color: #241b1b;
+	background-color: #008aab
 }

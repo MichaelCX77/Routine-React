@@ -12,7 +12,6 @@ import { getActualDate } from '../uteis/timeUtil'
 export default function Home(){
 
     const [visivel, setVisivel] = useState<"table" | "form">('table')
-
     const [actualDate, setActualDate] = useState(getActualDate())
 
     let isTable = visivel === "table" ? true : false

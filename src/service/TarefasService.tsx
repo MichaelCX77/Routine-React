@@ -10,3 +10,9 @@ export function getListTasks(){
         new Tarefas('Pilates','Fazer Pilates','21/02/2022','10:00',true, 2,'12/09/2022', null,5)
     ]
 }
+
+export function getTask(id){
+
+    return new Tarefas('Caminhada','Fazer Caminhada','28/02/2022','18:00',true, 2,'30/06/2022', null,id)
+
+}
