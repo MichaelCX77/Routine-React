@@ -1,7 +1,7 @@
 import ButtonSmall from './buttons/ButtonSmall'
-
+import { generateHours } from "../uteis/timeUtil"
 import React from 'react';
-
+                                     
 function head(){
     return(
         <thead className="text-left text-cyan-800 bg-slate-100">
@@ -25,16 +25,17 @@ function getButtons(){
     )
 }
 
-function getLine(bg,color,key){
+function getLine(task){
 
     const classe_td="pl-2 py-2"
+    const style = (task.id % 2 == 0) ? "bg-cyan-200 gray-600" : "bg-cyan-600 white"
 
     return (
 
-        <tr key={key} className={`${bg} text-${color}  hover:bg-slate-200`}>
-            <td className={classe_td}>09:00</td>
-            <td className={classe_td}>Buscar Yohan na creche</td>
-            <td className={classe_td}>Buscar Yohan na creche</td>
+        <tr key={task.getId} className={`${style} hover:bg-slate-200`}>
+            <td className={classe_td}>{task.horario}</td>
+            <td className={classe_td}>{task.title}</td>
+            <td className={classe_td}>{task.descricao}</td>
             <td className='flex flex-wrap place-content-evenly'>
                 {getButtons()}
             </td>
@@ -42,20 +43,21 @@ function getLine(bg,color,key){
     )
 }
 
-function body(){
+function body(props){
 
     return (
         <tbody className="">
-            {getLine("bg-cyan-200","gray-600",1)}
-            {getLine("bg-cyan-600","white",2)}
-            {getLine("bg-cyan-200","gray-600",3)}
-            {getLine("bg-cyan-600","white",4)}
+            
+            {props.getListTasks().map((task) => {
+                return (task.data == props.actualDate) ? (getLine(task)) : ""
+            })}
+
         </tbody>
     )
 }
 
-export default function Table(){
+export default function Table(props){
     return (
-        <table className="w-auto border-2 border-gray-200">{head()} {body()}</table>
+        <table className="w-auto border-2 border-gray-200">{head()} {body(props)}</table>
     )
 }
