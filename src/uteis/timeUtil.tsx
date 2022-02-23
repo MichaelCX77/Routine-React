@@ -24,3 +24,6 @@ export function getActualDate(){
     return getDay() + '/' + getMonth() + '/' + getYear();
 
 }
+
+export const arraydays = ["1 dia","2 dias", "3 dias","4 dias","5 dias",
+"6 dias","7 dias","10 dias","15 dias","20 dias","1 mês"]

@@ -4,27 +4,26 @@ import TextArea from "./inputs/TextArea"
 import Select from "./inputs/Select";
 import Button from "./buttons/Button";
 import CheckPerson from "./inputs/CheckPerson";
-import { generateHours } from "../uteis/timeUtil"
+import { generateHours, arraydays } from "../uteis/timeUtil"
+import Tarefas from "../entity/tarefas";
+import { getTask } from "../service/TarefasService";
 
 export default function Formulario(props){
 
-    const [id, setId] = React.useState()
-    const [title, setTitle] = React.useState()
-    const [descricao, setDescricao] = React.useState()
-    const [data, setData] = React.useState()
-    const [horario, setHorario] = React.useState()
-    const [naoRepetir, setNaoRepetir] = React.useState(false)
-    const [repetirACD, setrepetirACD] = React.useState()
-    const [repetirATE, setrepetirATE] = React.useState()
-    const [color, setColor]= React.useState("")
-
-    const arraydays = ["1 dia","2 dias", "3 dias","4 dias","5 dias",
-                        "6 dias","7 dias","10 dias","15 dias","20 dias","1 mês"]
+    const [id, setId] = React.useState(props.task?.id)
+    const [title, setTitle] = React.useState(props.task?.title)
+    const [descricao, setDescricao] = React.useState(props.task?.descricao)
+    const [data, setData] = React.useState(props.task?.data)
+    const [horario, setHorario] = React.useState(props.task?.horario)
+    const [naoRepetir, setNaoRepetir] = React.useState(props.task?.nao_repetir)
+    const [repetirACD, setrepetirACD] = React.useState(props.task?.repetir_a_cada_dia)
+    const [repetirATE, setrepetirATE] = React.useState(props.task?.repetir_a_cada_ate)
+    const [color, setColor]= React.useState(props.task?.color)
 
     function renderInputTitulo(){
         return(
             <div className="flex">
-                <Input placeholder="Título" type="text"/>
+                <Input placeholder="Título" type="text" value={title}/>
             </div>
         )
     }
@@ -32,7 +31,7 @@ export default function Formulario(props){
     function renderTextArea(){
         return(
             <div className="flex">
-                <TextArea placeholder="Descrição" cols="55" rows="4"/>
+                <TextArea value={descricao} placeholder="Descrição" cols="55" rows="4"/>
             </div> 
         )
     }
@@ -40,8 +39,8 @@ export default function Formulario(props){
     function renderInputDate(){
         return(
             <div className="flex">
-                <Input type="date" width="w-3/4"/>
-                <Select arrayOptions={generateHours()} />
+                <Input value={data} type="date" width="w-3/4"/>
+                <Select selectedValue={horario} arrayOptions={generateHours()} />
             </div> 
         )
     }
@@ -50,7 +49,7 @@ export default function Formulario(props){
 
         return(
             <div className="flex items-baseline">
-                <CheckPerson color="black" onClick={(e) => setNaoRepetir(e)}/>
+                <CheckPerson isChecked={naoRepetir} color="black" onClick={(e) => setNaoRepetir(e)}/>
                 <label className="pl-3" htmlFor="check_naorepetir">Não Repetir</label>
             </div>
         )
@@ -58,31 +57,29 @@ export default function Formulario(props){
 
     function renderFrequency(){
 
-        const isEnabled = naoRepetir == true ? "disabled" : ""
-
         return(
             <div className="flex items-baseline">
                 <span className="pl-3 mt-3 text-2x1">Repetir a cada</span>
-                <Select arrayOptions={arraydays} isEnabled={isEnabled}/>
+                <Select selectedValue={repetirACD} arrayOptions={arraydays} isEnabled={naoRepetir}/>
                 <span className="pt-3">até</span>
-                <Input type="date" width="w-3/4" isEnabled={isEnabled}/>
+                <Input value={repetirATE} type="date" width="w-3/4" isEnabled={naoRepetir}/>
             </div>
         )
     }
 
     function renderSelectColor(){
 
-        const isCheked = componentColor => (color == componentColor) ? true : false
+        const isChecked = componentColor => (color == componentColor) ? true : false
 
         return(
             <div className="flex items-baseline">
-                <CheckPerson isCheked={isCheked('red')} color="#fd4141"
+                <CheckPerson isChecked={isChecked('red')} color="#fd4141"
                     classe="px-12 py-3" onClick={() => setColor('red')}/>
-                <CheckPerson isCheked={isCheked('blue')} color="#5555fb" 
+                <CheckPerson isChecked={isChecked('blue')} color="#5555fb" 
                     classe="px-12 py-3" onClick={() => setColor('blue')} />
-                <CheckPerson isCheked={isCheked('orange')} color="#ffb122" 
+                <CheckPerson isChecked={isChecked('orange')} color="#ffb122" 
                     classe="px-12 py-3" onClick={() => setColor('orange')}/>
-                <CheckPerson isCheked={isCheked('green')} color="#25bb25" 
+                <CheckPerson isChecked={isChecked('green')} color="#25bb25" 
                     classe="px-12 py-3" onClick={() => setColor('green')}/>
             </div>
         )

@@ -6,7 +6,7 @@ import Conteudo from '../components/Conteudo'
 import Main from '../components/Main'
 import Formulario from '../components/Formulario'
 import { useState } from 'react'
-import { getListTasks } from '../service/TarefasService'
+import { getListTasks, editTask, deleteTask, getTask } from '../service/TarefasService'
 import { getActualDate } from '../uteis/timeUtil'
 
 export default function Home(){
@@ -26,14 +26,18 @@ export default function Home(){
             ) : ""}
             <Main title={isTable ? ("Minha Rotina") : ("Planejamento")}>
                     <Conteudo>
-                    {isTable ? (
-                        <>
-                            <DateBar date={actualDate.replaceAll('/', ' - ')}/>
-                            <Table getListTasks={() => getListTasks()} actualDate={actualDate} />
-                        </>
-                    ) : (
-                        <Formulario setTableVisible={() => setVisivel('table')}/>
-                    )}
+                        {isTable ? (
+                            <>
+                                <DateBar date={actualDate.replace('/',' - ').replace('/',' - ')}/>
+                                <Table getListTasks={() => getListTasks()} 
+                                    actualDate={actualDate} onClick={() => setVisivel('form')}
+                                    editTask={() => editTask} deleteTask={() => deleteTask}
+                                />
+                            </>
+                        ) : (
+                            <Formulario setTableVisible={() => setVisivel('table')}
+                            task={getTask()}/>
+                        )}
                     </Conteudo>
             </Main>
         </div>
