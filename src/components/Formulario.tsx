@@ -23,7 +23,8 @@ export default function Formulario(props){
     function renderInputTitulo(){
         return(
             <div className="flex">
-                <Input placeholder="Título" type="text" value={title}/>
+                <Input placeholder="Título" type="text" value={title} 
+                    onChange={setTitle}/>
             </div>
         )
     }
@@ -31,7 +32,8 @@ export default function Formulario(props){
     function renderTextArea(){
         return(
             <div className="flex">
-                <TextArea value={descricao} placeholder="Descrição" cols="55" rows="4"/>
+                <TextArea value={descricao} placeholder="Descrição" cols="55" rows="4"
+                    onChange={setDescricao}/>
             </div> 
         )
     }
@@ -39,8 +41,10 @@ export default function Formulario(props){
     function renderInputDate(){
         return(
             <div className="flex">
-                <Input value={data} type="date" width="w-3/4"/>
-                <Select selectedValue={horario} arrayOptions={generateHours()} />
+                <Input value={data} type="date" width="w-3/4"
+                    onChange={setData}/>
+                <Select selectedValue={horario} arrayOptions={generateHours()} 
+                    onChange={setHorario}/>
             </div> 
         )
     }
@@ -60,9 +64,11 @@ export default function Formulario(props){
         return(
             <div className="flex items-baseline">
                 <span className="pl-3 mt-3 text-2x1">Repetir a cada</span>
-                <Select selectedValue={repetirACD} arrayOptions={arraydays} isEnabled={naoRepetir}/>
+                <Select selectedValue={repetirACD} arrayOptions={arraydays}
+                    isEnabled={naoRepetir} onChange={setrepetirACD}/>
                 <span className="pt-3">até</span>
-                <Input value={repetirATE} type="date" width="w-3/4" isEnabled={naoRepetir}/>
+                <Input value={repetirATE} type="date" width="w-3/4" isEnabled={naoRepetir}
+                    onChange={setrepetirATE}/>
             </div>
         )
     }

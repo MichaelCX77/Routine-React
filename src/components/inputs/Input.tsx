@@ -17,7 +17,8 @@ export default function Input(props){
                     border-gray-500 px-2 py-1 ${width} outline-0
                     m-4`}
                     placeholder={props.placeholder}
-                    value={value}>
+                    value={value}
+                    onChange={(e) => props.onChange(e.target.value.split('-').reverse().join('/'))}>
             </input>
         </div>
     )

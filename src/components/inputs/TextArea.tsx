@@ -8,7 +8,8 @@ export default function TextArea(props){
                     border-gray-500 px-2 py-1 ml-4 outline-0 resize-none" 
                     placeholder={props.placeholder}
                     cols={props.cols} rows={props.rows}
-                    value={props.value}>
+                    value={props.value}
+                    onChange={(e) => props.onChange(e.target.value)}>
             </textarea>
         </div>
     )

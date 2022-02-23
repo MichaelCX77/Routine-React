@@ -11,7 +11,7 @@ export default function Button(props){
     return (
         <button className={`
             ${stringClass} rounded-md py-2 px-2 ${classe}`}
-            onClick={props.onClick} >
+                onClick={props.onClick} >
             {props.text}
         </button>
     )
