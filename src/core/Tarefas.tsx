@@ -1,3 +1,5 @@
+import { mdiViewColumn } from "@mdi/js"
+import { table } from "console"
 
 export default class Tarefas {
 

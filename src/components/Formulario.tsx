@@ -5,7 +5,7 @@ import Select from "./inputs/Select";
 import Button from "./buttons/Button";
 import CheckPerson from "./inputs/CheckPerson";
 import { generateHours, arraydays } from "../uteis/timeUtil"
-import Tarefas from "../entity/tarefas";
+import Tarefas from "../core/tarefas";
 
 export default function Formulario(props){
 

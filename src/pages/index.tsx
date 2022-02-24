@@ -8,7 +8,7 @@ import Formulario from '../components/Formulario'
 import { useState } from 'react'
 import { getListTasks, deleteTask, saveTask } from '../service/TarefasService'
 import { getActualDate } from '../uteis/timeUtil'
-import Tarefas from '../entity/tarefas'
+import Tarefas from '../core/tarefas'
 
 export default function Home(){
 
