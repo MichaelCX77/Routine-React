@@ -6,7 +6,6 @@ import Button from "./buttons/Button";
 import CheckPerson from "./inputs/CheckPerson";
 import { generateHours, arraydays } from "../uteis/timeUtil"
 import Tarefas from "../entity/tarefas";
-import { getTask } from "../service/TarefasService";
 
 export default function Formulario(props){
 
@@ -91,11 +90,19 @@ export default function Formulario(props){
         )
     }
 
-    function renderButtons(click){
+    function renderButtons(props){
+
+        function saveTask(){
+
+            props.saveTask(new Tarefas(title,descricao,data,horario,naoRepetir,repetirACD,repetirATE,color,id))
+            props.setTableVisible()
+            
+        }
+
         return(
             <div className="flex place-content-center mt-5">
-                <Button text="Voltar" color="bg-gray-400" hover="hover:bg-gray-200" classe="mx-3" onClick={click}/>
-                <Button text="Confirmar" class="mx-3" width="w-24" onClick={click}/>
+                <Button text="Voltar" color="bg-gray-400" hover="hover:bg-gray-200" classe="mx-3" onClick={props.setTableVisible}/>
+                <Button text="Confirmar" class="mx-3" width="w-24" onClick={saveTask}/>
             </div>
         )
     }
@@ -110,7 +117,7 @@ export default function Formulario(props){
                 {renderFrequency()}
                 {renderSelectColor()}
             </div>
-            {renderButtons(props.setTableVisible)}
+            {renderButtons(props)}
             <br />
         </React.Fragment>
     )

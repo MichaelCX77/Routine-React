@@ -15,12 +15,17 @@ function head(){
     )
 }
 
+function editInForm(props,task){
+    props.onClick()
+    props.setTarefa(task)
+}
+
 function getButtons(props,task){
 
     return (
         <React.Fragment>
-            <ButtonSmall onClick={props.deleteTask(task)} class="p-1 rounded-md hover:bg-red-300" style="mdiDelete" color="#F5756C"/>
-            <ButtonSmall onClick={props.editTask(task)} class="p-1 rounded-md hover:bg-sky-500" style="mdiPencil" color="#1977D4"/>
+            <ButtonSmall onClick={() => props.deleteTask(task)} class="p-1 rounded-md hover:bg-red-300" style="mdiDelete" color="#F5756C"/>
+            <ButtonSmall onClick={() => editInForm(props,task)}class="p-1 rounded-md hover:bg-sky-500" style="mdiPencil" color="#1977D4"/>
         </React.Fragment>
     )
 }

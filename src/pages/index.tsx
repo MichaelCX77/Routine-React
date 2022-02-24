@@ -6,22 +6,30 @@ import Conteudo from '../components/Conteudo'
 import Main from '../components/Main'
 import Formulario from '../components/Formulario'
 import { useState } from 'react'
-import { getListTasks, editTask, deleteTask, getTask } from '../service/TarefasService'
+import { getListTasks, deleteTask, saveTask } from '../service/TarefasService'
 import { getActualDate } from '../uteis/timeUtil'
+import Tarefas from '../entity/tarefas'
 
 export default function Home(){
 
     const [visivel, setVisivel] = useState<"table" | "form">('table')
     const [actualDate, setActualDate] = useState(getActualDate())
+    const [tarefa, setTarefa] = useState<Tarefas>(Tarefas.vazio())
 
     let isTable = visivel === "table" ? true : false
 
+    
     return (
         <div className='w-full'>
             <NavBar title="Routine React"/>
             {isTable ? (
                     <div className='flex justify-end mx-6 my-4'>
-                        <Button text="Planejar" onClick={() => setVisivel('form')}/>   
+                        <Button text="Planejar" onClick={
+                            () => {
+                                setVisivel('form')
+                                setTarefa(Tarefas.vazio())
+                            } 
+                        }/>   
                     </div>
             ) : ""}
             <Main title={isTable ? ("Minha Rotina") : ("Planejamento")}>
@@ -29,14 +37,21 @@ export default function Home(){
                         {isTable ? (
                             <>
                                 <DateBar date={actualDate.replace('/',' - ').replace('/',' - ')}/>
-                                <Table getListTasks={() => getListTasks()} 
-                                    actualDate={actualDate} onClick={() => setVisivel('form')}
-                                    editTask={() => editTask} deleteTask={() => deleteTask}
+                                <Table
+                                    getListTasks={() => getListTasks()} 
+                                    actualDate={actualDate} 
+                                    onClick={() => setVisivel('form')}
+                                    deleteTask={deleteTask}
+                                    setTarefa={setTarefa}
+
                                 />
                             </>
                         ) : (
-                            <Formulario setTableVisible={() => setVisivel('table')}
-                            task={getTask()}/>
+                            <Formulario 
+                                setTableVisible={() => setVisivel('table')}
+                                task={tarefa}
+                                saveTask={saveTask}
+                            />
                         )}
                     </Conteudo>
             </Main>
