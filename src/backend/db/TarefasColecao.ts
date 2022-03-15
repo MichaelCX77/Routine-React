@@ -4,20 +4,6 @@ import firebase from "../data/connection"
 
 export default class TarefasColecao implements TarefasRepository{
 
-    // constructor(props: TarefasColecao) {
-    //     super(props);
-    
-    //     this.colecao = this.colecao.bind(this);
-    // }
-
-
-    private colecao(){
-        return firebase.firestore()
-                        .collection('tarefas')
-                        .withConverter(this.#conversor)
-    }
-
-
     #conversor = {
 
         toFirestore(task : Tarefas){
@@ -42,7 +28,7 @@ export default class TarefasColecao implements TarefasRepository{
     }
     async salvar(task : Tarefas): Promise<Tarefas>{
 
-        if(task.id == null){
+        if(task.id != null){
             await this.colecao().doc(task.id).set(task)
             return task
         } else {
@@ -61,5 +47,11 @@ export default class TarefasColecao implements TarefasRepository{
         return query.docs.map(doc => doc.data())
     }
 
+
+    private colecao(){  
+        return firebase.firestore()
+                        .collection('tarefas')
+                        .withConverter(this.#conversor);
+    }
 
 }

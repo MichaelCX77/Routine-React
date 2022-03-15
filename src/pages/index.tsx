@@ -48,18 +48,18 @@ export default function Home(){
                                 <DateBar date={actualDate.replace('/',' - ').replace('/',' - ')}/>
                                 <Table
                                     getListTasks={() => tarefas} 
+                                    setListTasks={setListTarefas}
                                     actualDate={actualDate} 
                                     onClick={() => setVisivel('form')}
-                                    deleteTask={repo.excluir}
+                                    repo={repo}
                                     setTarefa={setTarefa}
-
                                 />
                             </>
                         ) : (
                             <Formulario 
                                 setTableVisible={() => setVisivel('table')}
                                 task={tarefa}
-                                saveTask={repo.salvar}
+                                repo={repo}
                             />
                         )}
                     </Conteudo>

@@ -20,11 +20,20 @@ function editInForm(props,task){
     props.setTarefa(task)
 }
 
+function deleteOfListTasks(props,task){
+
+    props.repo.excluir(task);
+    props.repo.obterTarefas().then((tarefas) => {
+        props.setListTasks(tarefas)
+    } )
+    
+}
+
 function getButtons(props,task){
 
     return (
         <React.Fragment>
-            <ButtonSmall onClick={() => props.deleteTask(task)} class="p-1 rounded-md hover:bg-red-300" style="mdiDelete" color="#F5756C"/>
+            <ButtonSmall onClick={() => deleteOfListTasks(props,task)} class="p-1 rounded-md hover:bg-red-300" style="mdiDelete" color="#F5756C"/>
             <ButtonSmall onClick={() => editInForm(props,task)}class="p-1 rounded-md hover:bg-sky-500" style="mdiPencil" color="#1977D4"/>
         </React.Fragment>
     )

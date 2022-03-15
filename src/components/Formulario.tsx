@@ -6,6 +6,8 @@ import Button from "./buttons/Button";
 import CheckPerson from "./inputs/CheckPerson";
 import { generateHours, arraydays } from "../uteis/timeUtil"
 import Tarefas from "../core/tarefas";
+import TarefasRepository from "../core/TarefasRepository";
+import TarefasColecao from "../backend/db/TarefasColecao";
 
 export default function Formulario(props){
 
@@ -93,8 +95,7 @@ export default function Formulario(props){
     function renderButtons(props){
 
         function saveTask(){
-
-            props.saveTask(new Tarefas(title,descricao,data,horario,naoRepetir,repetirACD,repetirATE,color,id))
+            props.repo.salvar(new Tarefas(title,descricao,data,horario,naoRepetir,repetirACD,repetirATE,color,id))
             props.setTableVisible()
             
         }
