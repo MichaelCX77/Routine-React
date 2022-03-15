@@ -4,7 +4,21 @@ import firebase from "../data/connection"
 
 export default class TarefasColecao implements TarefasRepository{
 
-    conversor = {
+    // constructor(props: TarefasColecao) {
+    //     super(props);
+    
+    //     this.colecao = this.colecao.bind(this);
+    // }
+
+
+    private colecao(){
+        return firebase.firestore()
+                        .collection('tarefas')
+                        .withConverter(this.#conversor)
+    }
+
+
+    #conversor = {
 
         toFirestore(task : Tarefas){
             return {
@@ -26,13 +40,6 @@ export default class TarefasColecao implements TarefasRepository{
                                    snapshot.id)
         }
     }
-
-    colecao(){
-        return firebase.firestore()
-                        .collection('tarefas')
-                        .withConverter(this.conversor)
-    }
-
     async salvar(task : Tarefas): Promise<Tarefas>{
 
         if(task.id == null){
@@ -53,5 +60,6 @@ export default class TarefasColecao implements TarefasRepository{
         const query =  await this.colecao().get()
         return query.docs.map(doc => doc.data())
     }
+
 
 }

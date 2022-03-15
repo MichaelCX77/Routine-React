@@ -5,20 +5,29 @@ import DateBar from '../components/DateBar'
 import Conteudo from '../components/Conteudo'
 import Main from '../components/Main'
 import Formulario from '../components/Formulario'
-import { useState } from 'react'
-import { getListTasks, deleteTask, saveTask } from '../service/TarefasService'
+import { useEffect, useState } from 'react'
 import { getActualDate } from '../uteis/timeUtil'
+import TarefasRepository from '../core/TarefasRepository'
+import TarefasColecao from '../backend/db/TarefasColecao'
 import Tarefas from '../core/tarefas'
 
 export default function Home(){
 
+    const repo: TarefasRepository = new TarefasColecao();
+
     const [visivel, setVisivel] = useState<"table" | "form">('table')
     const [actualDate, setActualDate] = useState(getActualDate())
+    const [tarefas, setListTarefas] = useState<Tarefas[]>([])
     const [tarefa, setTarefa] = useState<Tarefas>(Tarefas.vazio())
 
     let isTable = visivel === "table" ? true : false
 
-    
+    useEffect(() => {
+
+        repo.obterTarefas().then(setListTarefas)
+
+    }, [])
+
     return (
         <div className='w-full'>
             <NavBar title="Routine React"/>
@@ -38,10 +47,10 @@ export default function Home(){
                             <>
                                 <DateBar date={actualDate.replace('/',' - ').replace('/',' - ')}/>
                                 <Table
-                                    getListTasks={() => getListTasks()} 
+                                    getListTasks={() => tarefas} 
                                     actualDate={actualDate} 
                                     onClick={() => setVisivel('form')}
-                                    deleteTask={deleteTask}
+                                    deleteTask={repo.excluir}
                                     setTarefa={setTarefa}
 
                                 />
@@ -50,7 +59,7 @@ export default function Home(){
                             <Formulario 
                                 setTableVisible={() => setVisivel('table')}
                                 task={tarefa}
-                                saveTask={saveTask}
+                                saveTask={repo.salvar}
                             />
                         )}
                     </Conteudo>
