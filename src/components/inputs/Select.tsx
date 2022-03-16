@@ -7,15 +7,15 @@ export default function Select(props){
             <select disabled={props.isEnabled} className={`${props.class} 
                     bg-slate-300 rounded-md border-2 
                     border-gray-500 px-2 py-1.5 outline-0 m-4`}
-                    onChange={(e) => props.onChange(e.target.value)}>
+                    onChange={(e) => props.onChange(e.target.options[e.target.selectedIndex].text)}>
                 {
-                    props.arrayOptions.map((text, value) => {
+                    props.getValues().map((attr) => {
 
-                        const isSelected = (props.selectedValue == value) ? true : false
+                        const isSelected = (props.selectedValue == attr.id) ? true : false
 
-                        return <option value={value} selected={isSelected}>
-                                    {text}
-                               </option>    
+                        return <option value={attr.id} selected={isSelected}>
+                                    {attr.text}
+                               </option>
                     })
                 }
             </select>

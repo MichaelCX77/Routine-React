@@ -1,5 +1,5 @@
 import ButtonSmall from './buttons/ButtonSmall'
-import { generateHours } from "../uteis/timeUtil"
+import { generateHours } from "../uteis/TimeUtil"
 import React from 'react';
                                      
 function head(){

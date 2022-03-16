@@ -4,10 +4,9 @@ import TextArea from "./inputs/TextArea"
 import Select from "./inputs/Select";
 import Button from "./buttons/Button";
 import CheckPerson from "./inputs/CheckPerson";
-import { generateHours, arraydays } from "../uteis/timeUtil"
-import Tarefas from "../core/tarefas";
-import TarefasRepository from "../core/TarefasRepository";
-import TarefasColecao from "../backend/db/TarefasColecao";
+import { generateHours, arraydays } from "../uteis/TimeUtil"
+import Tarefas from "../core/Tarefas";
+import SelectModel from '../core/SelectModel'
 
 export default function Formulario(props){
 
@@ -39,12 +38,25 @@ export default function Formulario(props){
         )
     }
 
-    function renderInputDate(){
+    function renderInputDate(hours){
+
+        // const isSelected = (props.selectedValue == hour.id) ? true : false
+
+        // return <option value={hour.id} selected={isSelected}>
+        //             {hour.horario}
+        //        </option>
+
+        const getValues = (hours) => {
+            return hours.map((hour) => {
+                return new SelectModel(hour.id, hour.horario);
+            })
+        }
+
         return(
             <div className="flex">
                 <Input value={data} type="date" width="w-3/4"
                     onChange={setData}/>
-                <Select selectedValue={horario} arrayOptions={generateHours()} 
+                <Select selectedValue={horario} getValues={() => getValues(hours)} 
                     onChange={setHorario}/>
             </div> 
         )
@@ -60,12 +72,18 @@ export default function Formulario(props){
         )
     }
 
-    function renderFrequency(){
+    function renderFrequency(periods){
+
+        const getValues = (periods) => {
+            return periods.map((period) => {
+                return new SelectModel(period.id, period.periodo)
+            })
+        }
 
         return(
             <div className="flex items-baseline">
                 <span className="pl-3 mt-3 text-2x1">Repetir a cada</span>
-                <Select selectedValue={repetirACD} arrayOptions={arraydays}
+                <Select selectedValue={repetirACD} getValues={() => getValues(periods)}
                     isEnabled={naoRepetir} onChange={setrepetirACD}/>
                 <span className="pt-3">até</span>
                 <Input value={repetirATE} type="date" width="w-3/4" isEnabled={naoRepetir}
@@ -96,8 +114,10 @@ export default function Formulario(props){
 
         function saveTask(){
             props.repo.salvar(new Tarefas(title,descricao,data,horario,naoRepetir,repetirACD,repetirATE,color,id))
-            props.setTableVisible()
-            
+            props.repo.obterTarefas().then((tarefas) => {
+                props.setListTasks(tarefas)
+                props.setTableVisible()
+            } )
         }
 
         return(
@@ -113,9 +133,9 @@ export default function Formulario(props){
             <div className="container">
                 {renderInputTitulo()}
                 {renderTextArea()}
-                {renderInputDate()}
+                {renderInputDate(props.hours)}
                 {renderSelectHour()}
-                {renderFrequency()}
+                {renderFrequency(props.periods)}
                 {renderSelectColor()}
             </div>
             {renderButtons(props)}
