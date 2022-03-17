@@ -59,11 +59,14 @@ export default function Home(){
                     <Conteudo>
                         {isTable ? (
                             <>
-                                <DateBar date={actualDate.replace('/',' - ').replace('/',' - ')}/>
+                                <DateBar repo={repo}
+                                         date={actualDate}
+                                         setActualDate={setActualDate}
+                                />
                                 <Table
                                     getListTasks={() => tarefas} 
                                     setListTasks={setListTarefas}
-                                    actualDate={actualDate} 
+                                    actualDate={actualDate}
                                     onClick={() => setVisivel('form')}
                                     repo={repo}
                                     setTarefa={setTarefa}

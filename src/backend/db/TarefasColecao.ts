@@ -47,10 +47,10 @@ export default class TarefasColecao implements TarefasRepository{
         return query.docs.map(doc => doc.data())
     }
 
-    async obterTarefasByDay(day): Promise<Tarefas>{
-        const query =  await this.colecao().get()
-        return null
-    }
+    // async obterTarefasByDay(day : string): Promise<Tarefas[]>{
+    //     const query =  await this.colecao().where('data', "==" ,day).get()
+    //     return query.docs.map(doc => doc.data())
+    // }
 
     private colecao(){  
         return firebase.firestore()

@@ -25,5 +25,23 @@ export function getActualDate(){
 
 }
 
+export function getNewData(dataAtual, isYesterday){
+
+    const reverso = (data) => data.split('/').reverse().join('/');
+    dataAtual = reverso(dataAtual)
+
+    let data = new Date(dataAtual)
+
+    data.setDate(isYesterday ? data.getDate() - 1 : data.getDate() + 1)
+
+    const getDay = () => String(data.getDate()).padStart(2, '0');
+    const getMonth = () => String(data.getMonth() + 1).padStart(2, '0');
+    const getYear =  () => data.getFullYear();
+    const getNewDate = () => getDay() + "/" + getMonth() + "/" + getYear()
+
+    return getNewDate()
+
+}
+
 // export const arraydays = ["1 dia","2 dias", "3 dias","4 dias","5 dias",
 // "6 dias","7 dias","10 dias","15 dias","20 dias","1 mês"]
