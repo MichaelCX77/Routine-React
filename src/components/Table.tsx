@@ -1,5 +1,6 @@
 import ButtonSmall from './buttons/ButtonSmall'
 import React from 'react';
+import Tarefas from '../core/Tarefas'
                                      
 function head(){
     return(
@@ -41,15 +42,15 @@ function getButtons(props,task){
 function getLine(props, task, style){
 
     const classe_td="pl-2 py-2"
-    style = style ? "bg-cyan-200 gray-600" : "bg-cyan-600 white"
+    style = style ? "bg-white gray-100" : "bg-cyan-600 white"
 
     return (
-        <tr key={task.getId} className={`${style} hover:bg-slate-200`}>
-            <td className={classe_td}>{task.horario}</td>
+        <tr key={task.id ? task.id : task.horario.horario} className={`${style} hover:bg-slate-200`}>
+            <td className={classe_td}>{task.id == null ? task.horario.horario : task.horario}</td>
             <td className={classe_td}>{task.title}</td>
             <td className={classe_td}>{task.descricao}</td>
             <td className='flex flex-wrap place-content-evenly'>
-                {getButtons(props,task)}
+                {task.id ? getButtons(props,task) : "" }
             </td>
         </tr>
     )
@@ -57,19 +58,33 @@ function getLine(props, task, style){
 
 function body(props){
 
-    let style = false;
-
     return (
         <tbody className="">
-            {props.getListTasks().map((task) => {
+            {
+                props.hours.map(hour => {
 
-                if(task.data == props.actualDate){
-                    style = (style == true) ? false : true
-                    return getLine(props, task, style)
-                } else {
-                    return ""
-                }
-            })}
+                    let hasTask = false
+                    let actualTask = null
+
+                    props.getListTasks().map((task) => {
+                        if(task.data == props.actualDate){
+                            if(task.horario == hour.horario){
+                                actualTask = task
+                                hasTask = true
+                            } else {
+                                hasTask = false
+                            }
+                        }
+                    });
+
+                    if(hasTask){
+                        return getLine(props, actualTask, false)
+                    } else {
+                        return getLine(props, Tarefas.basicHour(hour), true)
+                    }
+
+                })
+            }
         </tbody>
     )
 }

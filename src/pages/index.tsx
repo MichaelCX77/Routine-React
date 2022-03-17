@@ -69,6 +69,7 @@ export default function Home(){
                                     actualDate={actualDate}
                                     onClick={() => setVisivel('form')}
                                     repo={repo}
+                                    hours={hours}
                                     setTarefa={setTarefa}
                                 />
                             </>

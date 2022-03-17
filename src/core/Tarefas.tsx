@@ -30,6 +30,10 @@ export default class Tarefas {
         return new Tarefas('','','','',false,0,'','')
     }
 
+    static basicHour(hour){
+        return new Tarefas('','','',hour,false,0,'','')
+    }
+
     get id() {
         return this.#id
     }
