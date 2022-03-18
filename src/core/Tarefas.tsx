@@ -70,4 +70,12 @@ export default class Tarefas {
         return this.#color
     }
 
+    set data(data) {
+        this.#data = data
+    }
+
+    set id(id) {
+        this.#id = id
+    }
+
 }

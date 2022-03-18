@@ -39,6 +39,22 @@ function getButtons(props,task){
     )
 }
 
+function getButtonAdd(addTask){
+
+    return (
+        <React.Fragment>
+            <ButtonSmall onClick={() => addTask()} class="p-1 rounded-md opacity-0 hover:opacity-100 bg-green-200" style="mdiNotePlusOutline" color="rgb(45 212 191)" />
+        </React.Fragment>
+    )
+}
+
+function addTask(props,task){
+    props.onClick()
+    task.data = props.actualDate
+    task.id = null
+    props.setTarefa(task)
+}
+
 function getLine(props, task, style){
 
     const classe_td="pl-2 py-2"
@@ -50,7 +66,7 @@ function getLine(props, task, style){
             <td className={classe_td}>{task.title}</td>
             <td className={classe_td}>{task.descricao}</td>
             <td className='flex flex-wrap place-content-evenly'>
-                {task.id ? getButtons(props,task) : "" }
+                {task.id ? getButtons(props,task) : getButtonAdd(() => addTask(props,task)) }
             </td>
         </tr>
     )

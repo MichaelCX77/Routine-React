@@ -4,7 +4,6 @@ import TextArea from "./inputs/TextArea"
 import Select from "./inputs/Select";
 import Button from "./buttons/Button";
 import CheckPerson from "./inputs/CheckPerson";
-import { generateHours, arraydays } from "../uteis/TimeUtil"
 import Tarefas from "../core/Tarefas";
 import SelectModel from '../core/SelectModel'
 
